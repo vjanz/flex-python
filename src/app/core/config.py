@@ -78,12 +78,11 @@ class Settings(BaseSettings):
         )
 
     EMAIL_TEST_USER: EmailStr = "test@example.com"  # type: ignore
-    FIRST_SUPERUSER: EmailStr
-    FIRST_SUPERUSER_PASSWORD: str
+    FIRST_SUPERUSER: EmailStr = "test@email.com"
+    FIRST_SUPERUSER_PASSWORD: str = "123123"
     USERS_OPEN_REGISTRATION: bool = True
 
     class Config:
         case_sensitive = True
-
 
 settings = Settings()
