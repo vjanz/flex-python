@@ -4,8 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+coverage = {extras = ["toml"],version = "*"}
+pytest-cov = "*"
 
 [packages]
+app = "*"
 alembic = "*"
 pydantic = {extras = ["email"],version = "*"}
 psycopg2 = "*"
@@ -16,6 +19,17 @@ uvicorn = "*"
 bcrypt = "*"
 pytest = "*"
 python-multipart = "*"
+raven = "*"
+celery = "*"
+sentry-sdk = "==0.14.4"
+emails = "*"
+jinja2 = "*"
+pytest-bdd = "*"
+sqlalchemy-utils = "*"
+pytest-cov = "*"
+faker = "*"
+factory-boy = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.8"
