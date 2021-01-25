@@ -2,6 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
+# Basemodel klas prej pydantic qe sherben per validim
 
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
@@ -13,6 +14,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     email: EmailStr
     password: str
+
 
 
 class UserUpdate(UserBase):
