@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Any
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -9,18 +9,19 @@ from app import crud, models, schemas
 from app.api import deps
 from app.core import security
 from app.core.config import settings
-from app.core.security import get_password_hash
 
 router = APIRouter()
 
 
 @router.post("/login/access-token", response_model=schemas.Token)
 def login_access_token(
-    db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
+        db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     """
     OAuth2 compatible token login, get an access token for future requests
     """
+    if len(form_data.password) == 5:
+        raise HTTPException(421, "Password should contain at least 6 characters")
     user = crud.user.authenticate(
         db, email=form_data.username, password=form_data.password
     )
@@ -36,8 +37,9 @@ def login_access_token(
         "token_type": "bearer",
     }
 
-@router.post("/login/test-token", response_model=schemas.User)
-def test_token(current_user: models.User = Depends(deps.get_current_user)) -> Any:
+
+@router.post("/login/me", response_model=schemas.User)
+def get_current_user(current_user: models.User = Depends(deps.get_current_user)) -> Any:
     """
     Test access token
     """
